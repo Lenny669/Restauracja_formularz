@@ -9,37 +9,40 @@
         body {
             height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: left;
+            justify-content: flex-start;
+            align-items: flex-start;
             background: lightgrey;
         }
+    .box {
+        margin-right: 20px;
+    }
 
-        .box {
-            margin-right: 20px;
-        }
+    #cena {
+        display: block;
+        color: red;
+        font-size: 40px;
+    }
 
-        #cena {
-            display: block;
-            color: red;
-            font-size: 30px;
-        }
+    select {
+        margin-bottom: 10px;
+    }
 
-        select {
-            margin-bottom: 10px;
-        }
+    .hidden {
+        display: none;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .name {
+        margin-bottom: 5px;
+    }
 
-        .name {
-            margin-bottom: 5px;
-        }
+    input[type="text"] {
+        margin-bottom: 10px;
+    }
 
-        input[type="text"] {
-            margin-bottom: 10px;
-        }
-    </style>
+    #podsumowanie {
+        margin-top: 5px;
+    }
+</style>
 </head>
 <body>
     <div class="box">
@@ -113,7 +116,7 @@
                     <option value="0.6">Stałego Klienta</option>
                 </select>
             </div>
-            <input type="button" value="Oblicz" onclick="obliczanie()"></input>
+            <input type="button" value="Przejdź do podsumowania" onclick="obliczanie()"></input>
         </form>
     </div>
     <div id="podsumowanie" class="box hidden">
@@ -125,46 +128,46 @@
         const cenaElement = document.getElementById("cena");
         const podsumowanieElement = document.getElementById("podsumowanie");
         const daneWynikoweElement = document.getElementById("dane_wynikowe");
+    function obliczanie() {
+        const imie = document.getElementById("imie").value;
+        const nazwisko = document.getElementById("nazwisko").value;
+        const telefon = document.getElementById("telefon").value;
+        const email = document.getElementById("email").value;
+        const miasto = document.getElementById("miasto").value;
+        const ulica = document.getElementById("ulica").value;
+        const numerDomu = document.getElementById("numer_domu").value;
+        const zupa = parseFloat(document.getElementById("zupa").value);
+        const drugieDanie = document.getElementById("drugie_danie").value;
+        const deser = parseFloat(document.getElementById("deser").value);
+        const napoj = parseFloat(document.getElementById("napoj").value);
+        const vat = parseFloat(document.getElementById("vat").value);
+        const znizka = parseFloat(document.getElementById("zniżka").value);
 
-        function obliczanie() {
-            const imie = document.getElementById("imie").value;
-            const nazwisko = document.getElementById("nazwisko").value;
-            const telefon = document.getElementById("telefon").value;
-            const email = document.getElementById("email").value;
-            const miasto = document.getElementById("miasto").value;
-            const ulica = document.getElementById("ulica").value;
-            const numerDomu = document.getElementById("numer_domu").value;
-            const zupa = parseFloat(document.getElementById("zupa").value);
-            const drugieDanie = document.getElementById("drugie_danie").value;
-            const deser = parseFloat(document.getElementById("deser").value);
-            const napoj = parseFloat(document.getElementById("napoj").value);
-            const vat = parseFloat(document.getElementById("vat").value);
-            const znizka = parseFloat(document.getElementById("zniżka").value);
+        let cenaKoncowa = zupa + parseFloat(drugieDanie) + deser + napoj;
+        cenaKoncowa = (cenaKoncowa + (cenaKoncowa * vat)) * znizka;
+        let sam_vat = vat * 100;
 
-            let cenaKoncowa = zupa + parseFloat(drugieDanie) + deser + napoj;
-            cenaKoncowa = (cenaKoncowa + (cenaKoncowa * vat)) * znizka;
+        cenaElement.innerHTML = "Cena zamówienia: " + cenaKoncowa.toFixed(2) + " zł";
 
-            cenaElement.innerHTML = "Cena zamówienia: " + cenaKoncowa.toFixed(2) + " zł";
+        const daneWynikowe = `
+            <p><strong>Imię:</strong> ${imie}</p>
+            <p><strong>Nazwisko:</strong> ${nazwisko}</p>
+            <p><strong>Telefon:</strong> ${telefon}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Miasto:</strong> ${miasto}</p>
+            <p><strong>Ulica:</strong> ${ulica}</p>
+            <p><strong>Numer domu/mieszkania:</strong> ${numerDomu}</p>
+            <p><strong>Zupa:</strong> ${document.getElementById("zupa").options[document.getElementById("zupa").selectedIndex].text}</p>
+            <p><strong>Drugie danie:</strong> ${document.getElementById("drugie_danie").options[document.getElementById("drugie_danie").selectedIndex].text}</p>
+            <p><strong>Deser:</strong> ${document.getElementById("deser").options[document.getElementById("deser").selectedIndex].text}</p>
+            <p><strong>Napój:</strong> ${document.getElementById("napoj").options[document.getElementById("napoj").selectedIndex].text}</p>
+            <p><strong>VAT:</strong> ${sam_vat.toFixed(0)}%</p>
+            <p><strong>Zniżka:</strong> ${document.getElementById("zniżka").options[document.getElementById("zniżka").selectedIndex].text}</p>
+        `;
 
-            const daneWynikowe = `
-                <p><strong>Imię:</strong> ${imie}</p>
-                <p><strong>Nazwisko:</strong> ${nazwisko}</p>
-                <p><strong>Telefon:</strong> ${telefon}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Miasto:</strong> ${miasto}</p>
-                <p><strong>Ulica:</strong> ${ulica}</p>
-                <p><strong>Numer domu/mieszkania:</strong> ${numerDomu}</p>
-                <p><strong>Zupa:</strong> ${document.getElementById("zupa").options[document.getElementById("zupa").selectedIndex].text}</p>
-                <p><strong>Drugie danie:</strong> ${document.getElementById("drugie_danie").options[document.getElementById("drugie_danie").selectedIndex].text}</p>
-                <p><strong>Deser:</strong> ${document.getElementById("deser").options[document.getElementById("deser").selectedIndex].text}</p>
-                <p><strong>Napój:</strong> ${document.getElementById("napoj").options[document.getElementById("napoj").selectedIndex].text}</p>
-                <p><strong>VAT:</strong> ${vat*100}%</p>
-                <p><strong>Zniżka:</strong> ${document.getElementById("zniżka").options[document.getElementById("zniżka").selectedIndex].text}</p>
-            `;
-
-            daneWynikoweElement.innerHTML = daneWynikowe;
-            podsumowanieElement.classList.remove("hidden");
-        }
-    </script>
+        daneWynikoweElement.innerHTML = daneWynikowe;
+        podsumowanieElement.classList.remove("hidden");
+    }
+</script>
 </body>
 </html>
