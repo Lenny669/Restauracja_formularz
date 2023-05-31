@@ -4,44 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hubert Grzelecki 3K1 Zamówienie obiadu</title>
+    <title>Zamówienie obiadu</title>
     <style>
-        body{
-            height:100vh;
+        body {
+            height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: left;
+            justify-content: space-between;
+            align-items: left;
             background: lightgrey;
         }
-        .box{
-            width: 1000px;
-            height: 800px;
-            background: lightgrey;
+
+        .box {
+            margin-right: 20px;
         }
-        #cena{
+
+        #cena {
             display: block;
             color: red;
-            font-size: 60px;
+            font-size: 40px;
         }
+
         select {
             margin-bottom: 10px;
         }
-        .option-list {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 10px;
-        }
-        .option-list label {
-            margin-right: 10px;
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="box">
-        <h1>Obiadek u Huberta</h1>
+        <h1>Zamówienie obiadu</h1>
         <form>
+            <div class="dane_osobowe">
+                <span class="name">Imię:</span>
+                <input type="text" id="imie" style="width: 150px;"><br>
+                <span class="name">Nazwisko:</span>
+                <input type="text" id="nazwisko" style="width: 150px;"><br>
+                <span class="name">Telefon:</span>
+                <input type="text" id="telefon" style="width: 150px;"><br>
+                <span class="name">Email:</span>
+                <input type="text" id="email" style="width: 150px;"><br>
+                <span class="name">Miasto:</span>
+                <input type="text" id="miasto" style="width: 150px;"><br>
+                <span class="name">Ulica:</span>
+                <input type="text" id="ulica" style="width: 150px;"><br>
+                <span class="name">Numer domu/mieszkania:</span>
+                <input type="text" id="numer_domu" style="width: 150px;"><br>
+            </div>
             <div class="zupa">
-                <span class="name">Wybierz zupę</span>
+                <span class="name">Wybierz zupę:</span>
                 <select id="zupa">
                     <option value="10">Pomidorowa</option>
                     <option value="12">Rosół</option>
@@ -50,67 +63,99 @@
                 </select>
             </div>
             <div class="drugie_danie">
-                <span class="name">Wybierz drugie danie</span>
-                <div class="option-list">
-                    <label><input type="radio" name="drugie_danie" value="28" checked>Schabowy</label>
-                    <label><input type="radio" name="drugie_danie" value="30">Kurczak z ryżem</label>
-                    <label><input type="radio" name="drugie_danie" value="26">Pierogi ruskie</label>
-                    <label><input type="radio" name="drugie_danie" value="32">Kotlet mielony</label>
-                </div>
+                <span class="name">Wybierz drugie danie:</span>
+                <select id="drugie_danie">
+                    <option value="28">Schabowy z ziemniakami</option>
+                    <option value="30">Kurczak z ryżem</option>
+                    <option value="26">Pierogi ruskie</option>
+                    <option value="32">Kotlet mielony z ziemniakami</option>
+                </select>
             </div>
             <div class="deser">
-                <span class="name">Wybierz deser</span>
+                <span class="name">Wybierz deser:</span>
                 <select id="deser">
                     <option value="9">Szarlotka</option>
-                    <option value="12">Lody</option>
+                    <option value="12">Lodowe kule</option>
                     <option value="10">Tiramisu</option>
-                    <option value="8">Brownie</option>
+                    <option value="8">Sernik</option>
                 </select>
             </div>
             <div class="napoj">
-                <span class="name">Wybierz napój</span>
+                <span class="name">Wybierz napój:</span>
                 <select id="napoj">
-                    <option value="4">Woda</option>
-                    <option value="6">Napój gazowany</option>
+                    <option value="4">Woda mineralna</option>
+                    <option value="6">Cola</option>
                     <option value="5">Sok pomarańczowy</option>
-                    <option value="7">Kawa</option>
+                    <option value="7">Herbata</option>
                 </select>
             </div>
             <div class="vat">
-                <span class="name">Wybierz VAT</span>
+                <span class="name">Wybierz VAT:</span>
                 <select id="vat">
                     <option value="0">0%</option>
-                    <option value="0.07">7%</option>   
-                    <option value="0.23">23%</option>   
+                    <option value="0.07">7%</option>
+                    <option value="0.23">23%</option>
                 </select>
             </div>
             <div class="zniżka">
-                <span class="name">Wybierz zniżkę</span>
-                <div class="option-list">
-                    <label><input type="radio" name="zniżka" value="1" checked>Brak</label>
-                    <label><input type="radio" name="zniżka" value="0.8">Ulgowa</label>
-                    <label><input type="radio" name="zniżka" value="0.6">Stałego Klienta</label>
-                </div>
+                <span class="name">Wybierz zniżkę:</span>
+                <select id="zniżka">
+                    <option value="1">Brak</option>
+                    <option value="0.8">Ulgowa</option>
+                    <option value="0.6">Stałego Klienta</option>
+                </select>
             </div>
             <input type="button" value="Oblicz" onclick="obliczanie()"></input>
-            <span id="cena"></span>
         </form>
     </div>
+    <div id="podsumowanie" class="box hidden">
+        <h2>Podsumowanie:</h2>
+        <div id="dane_wynikowe"></div>
+        <span id="cena"></span>
+    </div>
     <script>
-        const cena = document.getElementById("cena");
+        const cenaElement = document.getElementById("cena");
+        const podsumowanieElement = document.getElementById("podsumowanie");
+        const daneWynikoweElement = document.getElementById("dane_wynikowe");
 
         function obliczanie() {
+            const imie = document.getElementById("imie").value;
+            const nazwisko = document.getElementById("nazwisko").value;
+            const telefon = document.getElementById("telefon").value;
+            const email = document.getElementById("email").value;
+            const miasto = document.getElementById("miasto").value;
+            const ulica = document.getElementById("ulica").value;
+            const numerDomu = document.getElementById("numer_domu").value;
             const zupa = parseFloat(document.getElementById("zupa").value);
-            const drugie_danie = parseFloat(document.querySelector('input[name="drugie_danie"]:checked').value);
+            const drugieDanie = document.getElementById("drugie_danie").value;
             const deser = parseFloat(document.getElementById("deser").value);
             const napoj = parseFloat(document.getElementById("napoj").value);
             const vat = parseFloat(document.getElementById("vat").value);
-            const zniżka = parseFloat(document.querySelector('input[name="zniżka"]:checked').value);
+            const znizka = parseFloat(document.getElementById("zniżka").value);
 
-            let cena_koncowa = zupa + drugie_danie + deser + napoj;
-            cena_koncowa = (cena_koncowa + (cena_koncowa * vat)) * zniżka;
+            let cenaKoncowa = zupa + parseFloat(drugieDanie) + deser + napoj;
+            cenaKoncowa = (cenaKoncowa + (cenaKoncowa * vat)) * znizka;
 
-            cena.innerHTML = cena_koncowa.toFixed(2) + " zł";
+            cenaElement.innerHTML = "Cena zamówienia: " + cenaKoncowa.toFixed(2) + " zł";
+
+            const daneWynikowe = `
+                <p><strong>Imię:</strong> ${imie}</p>
+                <p><strong>Nazwisko:</strong> ${nazwisko}</p>
+                <p><strong>Telefon:</strong> ${telefon}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Miasto:</strong> ${miasto}</p>
+                <p><strong>Ulica:</strong> ${ulica}</p>
+                <p><strong>Numer domu/mieszkania:</strong> ${numerDomu}</p>
+                <p><strong>Zupa:</strong> ${document.getElementById("zupa").options[document.getElementById("zupa").selectedIndex].text}</p>
+                <p><strong>Drugie danie:</strong> ${document.getElementById("drugie_danie").options[document.getElementById("drugie_danie").selectedIndex].text}</p>
+                <p><strong>Deser:</strong> ${document.getElementById("deser").options[document.getElementById("deser").selectedIndex].text}</p>
+                <p><strong>Napój:</strong> ${document.getElementById("napoj").options[document.getElementById("napoj").selectedIndex].text}</p>
+                <p><strong>VAT:</strong> ${vat*100}%</p>
+                <p><strong>Zniżka:</strong> ${document.getElementById("zniżka").options[document.getElementById("zniżka").selectedIndex].text}</p>
+            `;
+
+            daneWynikoweElement.innerHTML = daneWynikowe;
+            podsumowanieElement.classList.remove("hidden");
         }
     </script>
 </body>
