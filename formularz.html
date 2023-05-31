@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamówienie obiadu</title>
+    <style>
+        body{
+            height:100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: lightgrey;
+        }
+        .box{
+            width: 1000px;
+            height: 700px;
+            background: lightgrey;
+        }
+        #cena{
+            display: block;
+            color: crimson;
+            font-size: 2rem;
+        }
+        select {
+            margin-bottom: 10px;
+        }
+        .option-list {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+        }
+        .option-list label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Zamówienie obiadu</h1>
+        <form>
+            <div class="zupa">
+                <span class="name">Wybierz zupę</span>
+                <select id="zupa">
+                    <option value="10">Pomidorowa</option>
+                    <option value="12">Rosół</option>
+                    <option value="15">Zupa krem z brokułów</option>
+                    <option value="10">Barszcz czerwony</option>
+                </select>
+            </div>
+            <div class="drugie_danie">
+                <span class="name">Wybierz drugie danie</span>
+                <div class="option-list">
+                    <label><input type="radio" name="drugie_danie" value="28">Schabowy</label>
+                    <label><input type="radio" name="drugie_danie" value="30">Kurczak z ryżem</label>
+                    <label><input type="radio" name="drugie_danie" value="26">Pierogi ruskie</label>
+                    <label><input type="radio" name="drugie_danie" value="32">Kotlet mielony</label>
+                </div>
+            </div>
+            <div class="deser">
+                <span class="name">Wybierz deser</span>
+                <select id="deser">
+                    <option value="9">Szarlotka</option>
+                    <option value="12">Lody</option>
+                    <option value="10">Tiramisu</option>
+                    <option value="8">Brownie</option>
+                </select>
+            </div>
+            <div class="napoj">
+                <span class="name">Wybierz napój</span>
+                <select id="napoj">
+                    <option value="4">Woda mineralna</option>
+                    <option value="6">Napój gazowany</option>
+                    <option value="5">Sok pomarańczowy</option>
+                    <option value="7">Kawa</option>
+                </select>
+            </div>
+            <div class="vat">
+                <span class="name">Wybierz VAT</span>
+                <select id="vat">
+                    <option value="0">0%</option>
+                    <option value="0.07">7%</option>   
+                    <option value="0.23">23%</option>   
+                </select>
+            </div>
+            <div class="zniżka">
+                <span class="name">Wybierz zniżkę</span>
+                <div class="option-list">
+                    <label><input type="radio" name="zniżka" value="1">Brak</label>
+                    <label><input type="radio" name="zniżka" value="0.8">Ulgowa</label>
+                    <label><input type="radio" name="zniżka" value="0.6">Stałego Klienta</label>
+                </div>
+            </div>
+            <input type="button" value="Oblicz" onclick="obliczanie()"></input>
+            <span id="cena"></span>
+        </form>
+    </div>
+    <script>
+        const cena = document.getElementById("cena");
+
+        function obliczanie() {
+            const zupa = parseFloat(document.getElementById("zupa").value);
+            const drugie_danie = parseFloat(document.querySelector('input[name="drugie_danie"]:checked').value);
+            const deser = parseFloat(document.getElementById("deser").value);
+            const napoj = parseFloat(document.getElementById("napoj").value);
+            const vat = parseFloat(document.getElementById("vat").value);
+            const zniżka = parseFloat(document.querySelector('input[name="zniżka"]:checked').value);
+
+            let cena_koncowa = zupa + drugie_danie + deser + napoj;
+            cena_koncowa = (cena_koncowa + (cena_koncowa * vat)) * zniżka;
+
+            cena.innerHTML = cena_koncowa.toFixed(2) + " zł";
+        }
+    </script>
+</body>
+</html>
